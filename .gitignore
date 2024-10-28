@@ -1,0 +1,8 @@
+*.mod
+*.o
+slurm*
+*.sqlite
+*.nsys-rep
+*.dat
+bynary
+*.x

@@ -1,0 +1,49 @@
+#
+# makefile for jacobi solver
+#
+#
+
+# 
+# precision
+#
+SINGLE=1
+
+#
+# ARCH specific flags
+#
+POWER8=0
+
+ifdef SINGLE
+   OPTS=-DSINGLE 
+endif
+
+
+CC=nvcc
+CFLAGS=-O3 -g $(OMP) -DSINGLE
+OCMPFLAGS=-D__cplusplus__
+
+LDFLAGS= -lm -lrt $(OMP)
+
+
+
+#
+## SRC directory
+DEPS=jacobi.h
+SRC=jacobi.cu utils.c
+OBJ=utils.o jacobi.o
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+build:jacobi_cuda
+
+jacobi_cuda: $(OBJ) 
+	$(CC) -o $@ $(OBJ) $(LDFLAGS) 
+
+
+%.o:%.cu %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+
+clean:
+	rm *.o jacobi_cuda

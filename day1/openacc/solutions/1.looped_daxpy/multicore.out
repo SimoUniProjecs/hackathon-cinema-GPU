@@ -1,0 +1,58 @@
+Unloading profile/base
+  ERROR: Module evaluation aborted
+rm -f binary 
+pgfortran -fast -acc -ta=multicore -Minfo=accel -o binary daxpy.f90
+pgfortran-Warning-The flag -ta has been deprecated, please use -acc and -gpu instead.
+
+daxpy:
+     19, Generating Multicore code
+         20, !$acc loop gang
+     26, Generating Multicore code
+         27, !$acc loop gang
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+------------------------------------
+runtime:       3.579
+------------------------------------
+rm -f binary 
+pgcc -fast -acc -ta=multicore -Minfo=accel -o binary daxpy.c
+pgcc-Warning-The flag -ta has been deprecated, please use -acc and -gpu instead.
+
+main:
+     35, Generating Multicore code
+         37, #pragma acc loop gang
+     41, Generating Multicore code
+         44, #pragma acc loop gang
+The total memory allocated is  13.411 GB.
+
+Vector addition
+  C/OpenAcc version
+
+  A program which adds two vector.
+=========================================
+
+   i        D[i] = A*X[i] + Y[i]
+
+   0    18.0000
+   1    18.0000
+   2    18.0000
+   3    18.0000
+   4    18.0000
+   5    18.0000
+   6    18.0000
+   7    18.0000
+   8    18.0000
+   9    18.0000
+
+time (s)= 0.849510
+
+Vector addition
+  Normal end of execution.

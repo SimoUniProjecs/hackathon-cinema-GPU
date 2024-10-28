@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --nodes=1               # number of nodes
+#SBATCH --ntasks-per-node=1     # number of tasks per node
+#SBATCH --cpus-per-task=32       # number of HW threads per task (equal to OMP_NUM_THREADS*4)
+#SBATCH --gres=gpu:4            # this refers to the number of requested gpus per node, and can vary between 1 and 4
+#SBATCH --gpus-per-task=4
+#SBATCH --time 00:20:00         # format: HH:MM:SS
+#SBATCH --output=mand.out
+#SBATCH -p boost_usr_prod
+#SBATCH -q boost_qos_dbg
+#SBATCH --exclusive
+
+module purge
+module load nvhpc/24.3
+
+make
+
+./mandelbrot.x
+
+nsys profile --trace=openacc,cuda,openmp --output=report-mandelbrot --force-overwrite=true ./mandelbrot.x
+

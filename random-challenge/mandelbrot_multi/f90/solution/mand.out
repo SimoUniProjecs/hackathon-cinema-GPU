@@ -1,0 +1,38 @@
+Unloading profile/base
+  ERROR: Module evaluation aborted
+nvfortran -fast -acc=gpu -gpu=pinned -Minfo=all -mp -c -o mandelbrot.o mandelbrot.F90
+mandelbrot:
+     42, Generating acc routine seq
+         Generating NVIDIA GPU code
+     55, FMA (fused multiply-add) instruction(s) generated
+     56, FMA (fused multiply-add) instruction(s) generated
+     61, Loop not vectorized/parallelized: potential early exits
+     62, FMA (fused multiply-add) instruction(s) generated
+     63, FMA (fused multiply-add) instruction(s) generated
+     66, FMA (fused multiply-add) instruction(s) generated
+nvfortran -fast -acc=gpu -gpu=pinned -Minfo=all -mp -c -o main_solution.o main_solution.F90
+mandelbrot_main:
+     32, !$omp parallel
+     41, Memory zero idiom, array assignment replaced by call to pgf90_mzero1
+     44, !$omp parallel
+nvfortran -fast -acc=gpu -gpu=pinned -Minfo=all -mp -o mandelbrot.x mandelbrot.o main_solution.o
+ Thread:            0 is using GPU            0
+ Thread:            3 is using GPU            3
+ Thread:            2 is using GPU            2
+ Thread:            1 is using GPU            1
+ Time:    0.000000    
+ Time:    0.000000    
+ Time:    0.000000    
+ Time:    0.000000    
+ Thread:            0 is using GPU            0
+ Thread:            2 is using GPU            2
+ Thread:            1 is using GPU            1
+ Thread:            3 is using GPU            3
+ Time:    0.000000    
+ Time:    0.000000    
+ Time:    0.000000    
+ Time:    0.000000    
+Generating '/tmp/nsys-report-5f56.qdstrm'
+[1/1] [0%                          ] report-mandelbrot.nsys-rep[1/1] [0%                          ] report-mandelbrot.nsys-rep[1/1] [7%                          ] report-mandelbrot.nsys-rep[1/1] [8%                          ] report-mandelbrot.nsys-rep[1/1] [13%                         ] report-mandelbrot.nsys-rep[1/1] [==19%                       ] report-mandelbrot.nsys-rep[1/1] [=============58%            ] report-mandelbrot.nsys-rep[1/1] [=============59%            ] report-mandelbrot.nsys-rep[1/1] [=============60%            ] report-mandelbrot.nsys-rep[1/1] [==============61%           ] report-mandelbrot.nsys-rep[1/1] [==============62%           ] report-mandelbrot.nsys-rep[1/1] [==============63%           ] report-mandelbrot.nsys-rep[1/1] [==============64%           ] report-mandelbrot.nsys-rep[1/1] [===============65%          ] report-mandelbrot.nsys-rep[1/1] [===============66%          ] report-mandelbrot.nsys-rep[1/1] [===============67%          ] report-mandelbrot.nsys-rep[1/1] [================68%         ] report-mandelbrot.nsys-rep[1/1] [================69%         ] report-mandelbrot.nsys-rep[1/1] [================70%         ] report-mandelbrot.nsys-rep[1/1] [================71%         ] report-mandelbrot.nsys-rep[1/1] [=================72%        ] report-mandelbrot.nsys-rep[1/1] [=================73%        ] report-mandelbrot.nsys-rep[1/1] [=================74%        ] report-mandelbrot.nsys-rep[1/1] [==================75%       ] report-mandelbrot.nsys-rep[1/1] [==================76%       ] report-mandelbrot.nsys-rep[1/1] [==================77%       ] report-mandelbrot.nsys-rep[1/1] [==================78%       ] report-mandelbrot.nsys-rep[1/1] [===================79%      ] report-mandelbrot.nsys-rep[1/1] [===================80%      ] report-mandelbrot.nsys-rep[1/1] [===================81%      ] report-mandelbrot.nsys-rep[1/1] [===================82%      ] report-mandelbrot.nsys-rep[1/1] [====================83%     ] report-mandelbrot.nsys-rep[1/1] [====================84%     ] report-mandelbrot.nsys-rep[1/1] [====================85%     ] report-mandelbrot.nsys-rep[1/1] [=====================86%    ] report-mandelbrot.nsys-rep[1/1] [=====================87%    ] report-mandelbrot.nsys-rep[1/1] [=====================88%    ] report-mandelbrot.nsys-rep[1/1] [=====================89%    ] report-mandelbrot.nsys-rep[1/1] [======================90%   ] report-mandelbrot.nsys-rep[1/1] [======================91%   ] report-mandelbrot.nsys-rep[1/1] [======================92%   ] report-mandelbrot.nsys-rep[1/1] [=======================93%  ] report-mandelbrot.nsys-rep[1/1] [=======================94%  ] report-mandelbrot.nsys-rep[1/1] [=======================95%  ] report-mandelbrot.nsys-rep[1/1] [=======================96%  ] report-mandelbrot.nsys-rep[1/1] [========================97% ] report-mandelbrot.nsys-rep[1/1] [========================98% ] report-mandelbrot.nsys-rep[1/1] [========================99% ] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep
+Generated:
+    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/mandelbrot_multi/f90/solution/report-mandelbrot.nsys-rep

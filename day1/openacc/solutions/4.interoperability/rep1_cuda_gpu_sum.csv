@@ -1,0 +1,4 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Category,Operation
+57.3,169283690,6,28213948.3,27711041.5,1632,57392740,30911287.0,MEMORY_OPER,[CUDA memcpy Host-to-Device]
+30.0,88574081,1,88574081.0,88574081.0,88574081,88574081,0.0,CUDA_KERNEL,void cutlass::Kernel<cutlass_80_tensorop_z884gemm_32x32_16x4_nn_align1>(T1::Params)
+12.7,37557116,1,37557116.0,37557116.0,37557116,37557116,0.0,MEMORY_OPER,[CUDA memcpy Device-to-Host]
