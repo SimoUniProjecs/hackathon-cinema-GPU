@@ -1,0 +1,4 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),GridXYZ,BlockXYZ,Name
+99.5,93999953,1,93999953.0,93999953.0,93999953,93999953,0.0,500000    1    1, 128    1    1,matrix_multiply_32_gpu
+0.4,376767,1,376767.0,376767.0,376767,376767,0.0,500000    1    1, 128    1    1,matrix_multiply_21_gpu
+0.1,48832,1,48832.0,48832.0,48832,48832,0.0,62500    1    1, 128    1    1,matrix_multiply_24_gpu

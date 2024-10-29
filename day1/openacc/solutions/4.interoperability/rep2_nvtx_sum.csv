@@ -1,0 +1,3 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Style,Range
+90.6,21935969995,1,21935969995.0,21935969995.0,21935969995,21935969995,0.0,PushPop,cpublas
+9.4,2268820059,2,1134410029.5,1134410029.5,112141,2268707918,1604139457.7,PushPop,gpublas

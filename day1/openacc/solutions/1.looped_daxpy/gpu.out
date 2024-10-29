@@ -1,0 +1,63 @@
+Unloading profile/base
+  ERROR: Module evaluation aborted
+rm -f binary 
+pgfortran -fast -acc -gpu=cc80,cuda12.3 -Minfo=accel -o binary daxpy.f90
+daxpy:
+     19, Generating NVIDIA GPU code
+         20, !$acc loop gang, vector(128) ! blockidx%x threadidx%x
+     19, Generating implicit copyout(y(1:2147483647),x(1:2147483647),d(1:2147483647)) [if not already present]
+     26, Generating NVIDIA GPU code
+         27, !$acc loop gang, vector(128) ! blockidx%x threadidx%x
+     26, Generating implicit copyin(y(1:2147483647),x(1:2147483647)) [if not already present]
+         Generating implicit copyout(d(1:2147483647)) [if not already present]
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+    18.00000000000000     
+------------------------------------
+runtime:      29.018
+------------------------------------
+rm -f binary 
+pgcc -fast -acc -gpu=cc80,cuda12.3 -Minfo=accel -o binary daxpy.c
+main:
+     35, Generating implicit firstprivate(n,i)
+         Generating NVIDIA GPU code
+         37, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     35, Generating implicit copyout(Y[:600000000],X[:600000000]) [if not already present]
+     41, Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+         44, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     41, Generating implicit copyin(Y[:600000000],X[:600000000]) [if not already present]
+         Generating implicit copyout(D[:600000000]) [if not already present]
+     44, Generating implicit firstprivate(A)
+The total memory allocated is  13.411 GB.
+
+Vector addition
+  C/OpenAcc version
+
+  A program which adds two vector.
+=========================================
+
+   i        D[i] = A*X[i] + Y[i]
+
+   0    18.0000
+   1    18.0000
+   2    18.0000
+   3    18.0000
+   4    18.0000
+   5    18.0000
+   6    18.0000
+   7    18.0000
+   8    18.0000
+   9    18.0000
+
+time (s)= 7.407395
+
+Vector addition
+  Normal end of execution.

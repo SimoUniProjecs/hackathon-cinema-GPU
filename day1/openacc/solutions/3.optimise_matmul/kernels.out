@@ -1,0 +1,25 @@
+Unloading profile/base
+  ERROR: Module evaluation aborted
+rm -f binary 
+pgfortran -fast -acc=autopar -gpu=cc80,cuda12.3 -Minfo=accel -o binary matmul.f90
+matrix_multiply:
+     18, Generating create(a(:,:)) [if not already present]
+         Generating copyout(c(:,:)) [if not already present]
+         Generating create(b(:,:)) [if not already present]
+     21, Loop is parallelizable
+         Generating NVIDIA GPU code
+         21,   ! blockidx%x threadidx%x auto-collapsed
+             !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
+     24, Generating NVIDIA GPU code
+         25, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
+         26,   ! blockidx%x threadidx%x collapsed
+     33, Loop is parallelizable
+     34, Loop is parallelizable
+         Generating implicit private(tmp)
+         Generating NVIDIA GPU code
+         33, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
+         34,   ! blockidx%x threadidx%x auto-collapsed
+         36, !$acc loop seq
+             Generating implicit reduction(+:tmp)
+     36, Loop is parallelizable
+ wall clock time    0.3268590    
