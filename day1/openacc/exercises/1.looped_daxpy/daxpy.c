@@ -12,7 +12,6 @@ int main ( int argc, char *argv[] )
   printf( "The total memory allocated is %7.3lf GB.\n",
           3.0*sizeof(double)*n/1024/1024/1024 );
   
-
   //double i;
   double A   = 16.0; 
 
