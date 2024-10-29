@@ -1,0 +1,3 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Style,Range
+97.7,1753684405470,4,438421101367.5,438421102361.5,438421088229,438421112518,10131.0,PushPop,main_loop
+2.3,40466134443,2000,20233067.2,10784101.0,451104,43813262,19334728.8,PushPop,haloswap
