@@ -1,46 +1,0 @@
-Unloading profile/base
-  ERROR: Module evaluation aborted
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -c nvtx.f90
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -c boundary.f90
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -c jacobi.f90
-jacobistep_acc:
-     14, Generating implicit firstprivate(n,m)
-         Generating NVIDIA GPU code
-         15, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
-         16,   ! blockidx%x threadidx%x collapsed
-     14, Generating implicit copyout(psinew(1:m,1:n)) [if not already present]
-         Generating implicit copyin(psi(:m+1,:n+1)) [if not already present]
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -c cfdio.f90
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -c cfd.f90
-cfd:
-    144, Generating implicit firstprivate(n,m)
-         Generating NVIDIA GPU code
-        145, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
-        146,   ! blockidx%x threadidx%x collapsed
-    144, Generating implicit copyin(psitmp(1:n,1:m)) [if not already present]
-         Generating implicit copyout(psi(1:n,1:m)) [if not already present]
-nvfortran -fast -Minfo=accel -acc -gpu=cc80,cuda12.3 -cuda -o cfd_acc.exe nvtx.o boundary.o cfd.o cfdio.o jacobi.o -lnvToolsExt
- Scale factor = 200, iterations =     50, tolerance =  0.1000E-03
- Running CFD on     6400 x     6400 grid in serial 
- 
- Starting main loop ...
- 
- 
- ... finished
- 
- After        50 iterations, error is  0.1190E-01
- Time for     50 iterations was   8.042     seconds
- Each individual iteration took  0.1608     seconds
- 
- Writing output file ...
-  ... finished
- 
- CFD completed
- 
-WARNING: CUDA tracing has been automatically enabled since it is a prerequisite for tracing OpenACC.
-Capture range started in the application.
-Capture range ended in the application.
-Generating '/tmp/nsys-report-dfa4.qdstrm'
-[1/1] [0%                          ] report_acc_data1.nsys-rep[1/1] [0%                          ] report_acc_data1.nsys-rep[1/1] [6%                          ] report_acc_data1.nsys-rep[1/1] [7%                          ] report_acc_data1.nsys-rep[1/1] [===========53%              ] report_acc_data1.nsys-rep[1/1] [=========45%                ] report_acc_data1.nsys-rep[1/1] [============57%             ] report_acc_data1.nsys-rep[1/1] [=============58%            ] report_acc_data1.nsys-rep[1/1] [=============59%            ] report_acc_data1.nsys-rep[1/1] [=============60%            ] report_acc_data1.nsys-rep[1/1] [==============61%           ] report_acc_data1.nsys-rep[1/1] [==============62%           ] report_acc_data1.nsys-rep[1/1] [=================72%        ] report_acc_data1.nsys-rep[1/1] [===================82%      ] report_acc_data1.nsys-rep[1/1] [======================92%   ] report_acc_data1.nsys-rep[1/1] [========================98% ] report_acc_data1.nsys-rep[1/1] [========================100%] report_acc_data1.nsys-rep[1/1] [========================100%] report_acc_data1.nsys-rep
-Generated:
-    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/single-gpu/cfdcode-onegpu/Fortran/solution/4.loops/report_acc_data1.nsys-rep

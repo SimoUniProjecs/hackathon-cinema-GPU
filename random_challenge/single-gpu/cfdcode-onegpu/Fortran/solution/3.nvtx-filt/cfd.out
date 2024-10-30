@@ -1,14 +1,0 @@
-Unloading profile/base
-  ERROR: Module evaluation aborted
-nvfortran -fast  -c nvtx.f90
-nvfortran -fast  -c boundary.f90
-nvfortran -fast  -c jacobi.f90
-nvfortran -fast  -c cfdio.f90
-nvfortran -fast  -c cfd.f90
-nvfortran -fast  -o cfd_nvtx.exe nvtx.o boundary.o cfd.o cfdio.o jacobi.o -cuda -lnvToolsExt
-Capture range started in the application.
-Capture range ended in the application.
-Generating '/tmp/nsys-report-a0b9.qdstrm'
-[1/1] [0%                          ] report_filtered.nsys-rep[1/1] [0%                          ] report_filtered.nsys-rep[1/1] [========41%                 ] report_filtered.nsys-rep[1/1] [==========49%               ] report_filtered.nsys-rep[1/1] [============56%             ] report_filtered.nsys-rep[1/1] [============57%             ] report_filtered.nsys-rep[1/1] [=============58%            ] report_filtered.nsys-rep[1/1] [=============59%            ] report_filtered.nsys-rep[1/1] [=============60%            ] report_filtered.nsys-rep[1/1] [=====================88%    ] report_filtered.nsys-rep[1/1] [========================99% ] report_filtered.nsys-rep[1/1] [========================100%] report_filtered.nsys-rep[1/1] [========================100%] report_filtered.nsys-rep
-Generated:
-    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/single-gpu/cfdcode-onegpu/Fortran/solution/3.nvtx-filt/report_filtered.nsys-rep

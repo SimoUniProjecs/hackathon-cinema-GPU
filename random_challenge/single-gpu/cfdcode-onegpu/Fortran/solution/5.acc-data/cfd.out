@@ -1,82 +1,0 @@
-Unloading profile/base
-  ERROR: Module evaluation aborted
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -c nvtx.f90
-nvtxstartrange:
-     54, Recognized memory copy idiom
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -c boundary.f90
-boundarypsi:
-     15, Loop not fused: function call before adjacent loop
-         Generated vector simd code for the loop
-     19, Recognized memory set idiom
-     25, Loop not fused: different loop trip count
-         Loop not vectorized: unprofitable for target
-         Loop unrolled 4 times
-     31, Generated vector simd code for the loop
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -c jacobi.f90
-jacobistep_acc:
-     14, Generating present(psinew(:m+1,:n+1),psi(:m+1,:n+1))
-         Generating implicit firstprivate(n,m)
-         Generating NVIDIA GPU code
-         15, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
-         16,   ! blockidx%x threadidx%x collapsed
-deltasq:
-     35, Generating present(old(:,:),new(:,:))
-         Generating implicit firstprivate(n,m)
-         Generating NVIDIA GPU code
-         36, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
-             Generating reduction(+:deltasq)
-         37,   ! blockidx%x threadidx%x collapsed
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -c cfdio.f90
-writedatafiles:
-     26, Loop not vectorized/parallelized: contains call
-     31, FMA (fused multiply-add) instruction(s) generated
-     45, Loop not vectorized/parallelized: contains call
-colfunc:
-    125, FMA (fused multiply-add) instruction(s) generated
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -c cfd.f90
-cfd:
-     98, Recognized memory zero idiom
-    107, sum reduction inlined
-         Loop not fused: function call before adjacent loop
-         Generated vector simd code for the loop containing reductions
-         Loop unrolled 4 times
-         FMA (fused multiply-add) instruction(s) generated
-    120, Generating enter data copyin(psi(0:m+1,0:n+1))
-         Generating enter data create(psitmp(0:m+1,0:n+1))
-    121, Loop not vectorized/parallelized: potential early exits
-    146, Generating present(psitmp(:,:),psi(:,:))
-         Generating implicit firstprivate(n,m)
-         Generating NVIDIA GPU code
-        147, !$acc loop gang, vector(128) collapse(2) ! blockidx%x threadidx%x
-        148,   ! blockidx%x threadidx%x collapsed
-    168, Generating exit data delete(psitmp(:,:))
-         Generating exit data copyout(psi(:,:))
-nvfortran -fast -Minfo=all -acc -gpu=cc80,cuda12.3 -cuda -o cfd_acc.exe nvtx.o boundary.o cfd.o cfdio.o jacobi.o -lnvToolsExt
- Scale factor = 200, iterations =     50, tolerance =  0.1000E-03
- Running CFD on     6400 x     6400 grid in serial 
- 
- Starting main loop ...
- 
- 
- ... finished
- 
- After        50 iterations, error is  0.1190E-01
- Time for     50 iterations was  0.4597     seconds
- Each individual iteration took  0.9194E-02 seconds
- 
- Writing output file ...
-  ... finished
- 
- CFD completed
- 
-
-real	0m22.561s
-user	0m20.811s
-sys	0m1.572s
-WARNING: CUDA tracing has been automatically enabled since it is a prerequisite for tracing OpenACC.
-Capture range started in the application.
-Capture range ended in the application.
-Generating '/tmp/nsys-report-5824.qdstrm'
-[1/1] [0%                          ] report_acc_data_BEST.nsys-rep[1/1] [0%                          ] report_acc_data_BEST.nsys-rep[1/1] [12%                         ] report_acc_data_BEST.nsys-rep[1/1] [13%                         ] report_acc_data_BEST.nsys-rep[1/1] [==21%                       ] report_acc_data_BEST.nsys-rep[1/1] [=====29%                    ] report_acc_data_BEST.nsys-rep[1/1] [=================74%        ] report_acc_data_BEST.nsys-rep[1/1] [==================75%       ] report_acc_data_BEST.nsys-rep[1/1] [==================76%       ] report_acc_data_BEST.nsys-rep[1/1] [==================77%       ] report_acc_data_BEST.nsys-rep[1/1] [==================78%       ] report_acc_data_BEST.nsys-rep[1/1] [===================79%      ] report_acc_data_BEST.nsys-rep[1/1] [===================80%      ] report_acc_data_BEST.nsys-rep[1/1] [===================81%      ] report_acc_data_BEST.nsys-rep[1/1] [===================82%      ] report_acc_data_BEST.nsys-rep[1/1] [====================83%     ] report_acc_data_BEST.nsys-rep[1/1] [====================84%     ] report_acc_data_BEST.nsys-rep[1/1] [====================85%     ] report_acc_data_BEST.nsys-rep[1/1] [=====================86%    ] report_acc_data_BEST.nsys-rep[1/1] [=====================87%    ] report_acc_data_BEST.nsys-rep[1/1] [=====================88%    ] report_acc_data_BEST.nsys-rep[1/1] [=====================89%    ] report_acc_data_BEST.nsys-rep[1/1] [======================90%   ] report_acc_data_BEST.nsys-rep[1/1] [======================92%   ] report_acc_data_BEST.nsys-rep[1/1] [========================100%] report_acc_data_BEST.nsys-rep[1/1] [========================100%] report_acc_data_BEST.nsys-rep
-Generated:
-    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/single-gpu/cfdcode-onegpu/Fortran/solution/5.acc-data/report_acc_data_BEST.nsys-rep

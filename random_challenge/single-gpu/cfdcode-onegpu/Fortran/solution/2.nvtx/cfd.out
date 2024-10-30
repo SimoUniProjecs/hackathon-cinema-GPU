@@ -1,29 +1,0 @@
-Unloading profile/base
-  ERROR: Module evaluation aborted
-nvfortran -fast -g  -c nvtx.f90
-nvfortran -fast -g  -c boundary.f90
-nvfortran -fast -g  -c jacobi.f90
-nvfortran -fast -g  -c cfdio.f90
-nvfortran -fast -g  -c cfd.f90
-nvfortran -fast -g  -o cfd_nvtx.exe nvtx.o boundary.o cfd.o cfdio.o jacobi.o -cuda -lnvToolsExt 
- Scale factor = 200, iterations =     50, tolerance =  0.1000E-03
- Running CFD on     6400 x     6400 grid in serial 
- 
- Starting main loop ...
- 
- 
- ... finished
- 
- After        50 iterations, error is  0.1190E-01
- Time for     50 iterations was   6.663     seconds
- Each individual iteration took  0.1333     seconds
- 
- Writing output file ...
-  ... finished
- 
- CFD completed
- 
-Generating '/tmp/nsys-report-5ff0.qdstrm'
-[1/1] [0%                          ] report_nvtx.nsys-rep[1/1] [0%                          ] report_nvtx.nsys-rep[1/1] [5%                          ] report_nvtx.nsys-rep[1/1] [6%                          ] report_nvtx.nsys-rep[1/1] [7%                          ] report_nvtx.nsys-rep[1/1] [===========53%              ] report_nvtx.nsys-rep[1/1] [============54%             ] report_nvtx.nsys-rep[1/1] [============55%             ] report_nvtx.nsys-rep[1/1] [==============64%           ] report_nvtx.nsys-rep[1/1] [===============67%          ] report_nvtx.nsys-rep[1/1] [==================75%       ] report_nvtx.nsys-rep[1/1] [====================84%     ] report_nvtx.nsys-rep[1/1] [======================92%   ] report_nvtx.nsys-rep[1/1] [========================100%] report_nvtx.nsys-rep[1/1] [========================100%] report_nvtx.nsys-rep[1/1] [========================100%] report_nvtx.nsys-rep
-Generated:
-    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/single-gpu/cfdcode-onegpu/Fortran/solution/2.nvtx/report_nvtx.nsys-rep

@@ -1,15 +1,0 @@
-Unloading profile/base
-  ERROR: Module evaluation aborted
-make: 'mandelbrot.x' is up to date.
- num_blocks            2
- Time:   1.8259048E-02
- num_blocks            4
- Time:   1.5387058E-02
- num_blocks           16
- Time:   1.5150070E-02
- num_blocks            8
- Time:   1.4609814E-02
-Generating '/tmp/nsys-report-517d.qdstrm'
-[1/1] [0%                          ] report-mandelbrot.nsys-rep[1/1] [0%                          ] report-mandelbrot.nsys-rep[1/1] [=======38%                  ] report-mandelbrot.nsys-rep[1/1] [===========51%              ] report-mandelbrot.nsys-rep[1/1] [==============64%           ] report-mandelbrot.nsys-rep[1/1] [===============65%          ] report-mandelbrot.nsys-rep[1/1] [===============66%          ] report-mandelbrot.nsys-rep[1/1] [===============67%          ] report-mandelbrot.nsys-rep[1/1] [================70%         ] report-mandelbrot.nsys-rep[1/1] [================71%         ] report-mandelbrot.nsys-rep[1/1] [=================72%        ] report-mandelbrot.nsys-rep[1/1] [=================73%        ] report-mandelbrot.nsys-rep[1/1] [=================74%        ] report-mandelbrot.nsys-rep[1/1] [==================75%       ] report-mandelbrot.nsys-rep[1/1] [==================76%       ] report-mandelbrot.nsys-rep[1/1] [==================77%       ] report-mandelbrot.nsys-rep[1/1] [==================78%       ] report-mandelbrot.nsys-rep[1/1] [===================79%      ] report-mandelbrot.nsys-rep[1/1] [===================80%      ] report-mandelbrot.nsys-rep[1/1] [===================81%      ] report-mandelbrot.nsys-rep[1/1] [===================82%      ] report-mandelbrot.nsys-rep[1/1] [====================83%     ] report-mandelbrot.nsys-rep[1/1] [====================84%     ] report-mandelbrot.nsys-rep[1/1] [====================85%     ] report-mandelbrot.nsys-rep[1/1] [=====================86%    ] report-mandelbrot.nsys-rep[1/1] [=====================87%    ] report-mandelbrot.nsys-rep[1/1] [=====================88%    ] report-mandelbrot.nsys-rep[1/1] [=====================89%    ] report-mandelbrot.nsys-rep[1/1] [======================90%   ] report-mandelbrot.nsys-rep[1/1] [=======================94%  ] report-mandelbrot.nsys-rep[1/1] [========================97% ] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep[1/1] [========================100%] report-mandelbrot.nsys-rep
-Generated:
-    /leonardo_scratch/large/userinternal/lbellen1/projects/EPICURE/epicure-gpu-hackathon/random-challenge/async_mandelbrot/solution/f90/task2/report-mandelbrot.nsys-rep
