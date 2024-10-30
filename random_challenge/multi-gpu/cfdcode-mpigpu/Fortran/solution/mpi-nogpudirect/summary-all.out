@@ -1,0 +1,158 @@
+Generating SQLite file report-mpi.sqlite from report-mpi.nsys-rep
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/nvtx_sum.py]... 
+
+ ** NVTX Range Summary (nvtx_sum):
+
+ Time (%)  Total Time (ns)  Instances     Avg (ns)         Med (ns)        Min (ns)       Max (ns)     StdDev (ns)   Style     Range  
+ --------  ---------------  ---------  ---------------  ---------------  -------------  -------------  -----------  -------  ---------
+     89.1   17,895,932,730          4  4,473,983,182.5  4,474,018,142.5  4,473,875,910  4,474,020,535     71,542.9  PushPop  main_loop
+     10.9    2,189,625,075      2,000      1,094,812.5      1,089,337.5        949,352      2,607,153     73,311.2  PushPop  haloswap 
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/osrt_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain OS Runtime trace data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/cuda_api_sum.py]... 
+
+ ** CUDA API Summary (cuda_api_sum):
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)            Name         
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------
+     83.0   15,785,062,919     12,036  1,311,487.4   41,029.0     1,008    3,993,110   1,833,991.7  cuStreamSynchronize   
+      8.8    1,682,579,539      3,014    558,254.7  221,835.0    12,862  254,054,900   9,231,557.1  cuMemcpyDtoHAsync_v2  
+      8.0    1,515,294,336      3,018    502,085.6   97,114.0     8,013  309,562,752  11,080,243.9  cuMemcpyHtoDAsync_v2  
+      0.1       21,110,000         28    753,928.6   15,445.5     3,134    4,243,380   1,226,588.7  cuMemAlloc_v2         
+      0.1       19,255,780      4,008      4,804.3    5,348.0     2,360       37,940       2,367.2  cuLaunchKernel        
+      0.0        3,004,242          4    751,060.5  749,969.0   736,851      767,453      12,559.2  cuMemAllocHost_v2     
+      0.0          581,440          4    145,360.0  145,069.0   138,918      152,384       6,196.4  cuModuleLoadDataEx    
+      0.0           18,076          4      4,519.0    4,458.0     4,154        5,006         374.4  cuModuleGetLoadingMode
+      0.0           17,808          4      4,452.0    4,335.0     3,898        5,240         644.0  cuMemsetD32Async      
+      0.0            6,978          4      1,744.5    1,751.5     1,397        2,078         278.2  cuInit                
+      0.0            5,449         12        454.1      383.5       117        1,073         317.2  cuCtxSetCurrent       
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+
+ ** CUDA GPU Kernel Summary (cuda_gpu_kern_sum):
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)             Name           
+ --------  ---------------  ---------  -----------  -----------  ---------  ---------  -----------  --------------------------
+     50.4    7,882,932,302      2,000  3,941,466.2  3,940,534.0  3,924,385  3,992,474      7,812.0  jacobi_jacobistep_13_gpu  
+     49.5    7,738,651,652      2,000  3,869,325.8  3,868,945.5  3,853,569  3,892,603      4,125.3  cfd_217_gpu               
+      0.1       14,933,694          4  3,733,423.5  3,734,070.5  3,730,224  3,735,329      2,439.1  jacobi_deltasq_35_gpu     
+      0.0          474,207          4    118,551.8    118,159.5    116,704    121,184      1,951.8  jacobi_deltasq_35_gpu__red
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_mem_time_sum.py]... 
+
+ ** CUDA GPU MemOps Summary (by Time) (cuda_gpu_mem_time_sum):
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)   Med (ns)  Min (ns)   Max (ns)    StdDev (ns)            Operation          
+ --------  ---------------  -----  ---------  --------  --------  -----------  ------------  ----------------------------
+     54.2    1,437,584,317  3,018  476,336.8  72,848.5     1,632  309,468,970  11,077,736.2  [CUDA memcpy Host-to-Device]
+     45.8    1,212,787,678  3,014  402,384.8  65,760.0     1,600  253,924,188   9,232,588.4  [CUDA memcpy Device-to-Host]
+      0.0            3,968      4      992.0     992.0       992          992           0.0  [CUDA memset]               
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_mem_size_sum.py]... 
+
+ ** CUDA GPU MemOps Summary (by Size) (cuda_gpu_mem_size_sum):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)   StdDev (MB)           Operation          
+ ----------  -----  --------  --------  --------  ---------  -----------  ----------------------------
+ 15,424.002  3,018     5.111     1.638     0.000  2,624.742       95.449  [CUDA memcpy Host-to-Device]
+ 15,424.000  3,014     5.117     1.638     0.000  2,624.742       95.512  [CUDA memcpy Device-to-Host]
+      0.000      4     0.000     0.000     0.000      0.000        0.000  [CUDA memset]               
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/openmp_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain OpenMP event data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/opengl_khr_range_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain KHR Extension (KHR_DEBUG) data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/opengl_khr_gpu_range_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain GPU KHR Extension (KHR_DEBUG) data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/vulkan_marker_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain Vulkan Debug Extension (Vulkan Debug Util) data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/vulkan_gpu_marker_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain GPU Vulkan Debug Extension (GPU Vulkan Debug markers) data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/dx11_pix_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain DX11 CPU debug markers.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/dx12_gpu_marker_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain DX12 GPU debug markers.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/dx12_pix_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain DX12 CPU debug markers.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/wddm_queue_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain WDDM context data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/um_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/um_total_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/um_cpu_page_faults_sum.py]... 
+SKIPPED: report-mpi.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [report-mpi.sqlite] with [/leonardo/prod/spack/5.2/install/0.21/linux-rhel8-icelake/gcc-8.5.0/nvhpc-24.3-v63z4inohb4ywjeggzhlhiuvuoejr2le/Linux_x86_64/24.3/profilers/Nsight_Systems/host-linux-x64/reports/openacc_sum.py]... 
+
+ ** OpenACC Summary (openacc_sum):
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)       Med (ns)      Min (ns)     Max (ns)     StdDev (ns)                 Name               
+ --------  ---------------  ---------  -------------  -------------  -----------  -----------  -------------  ---------------------------------
+     20.2    7,911,001,154      2,000    3,955,500.6    3,954,441.0    3,938,746    4,041,329        8,478.6  Compute Construct@jacobi.f90:13  
+     20.1    7,895,143,303      4,000    1,973,785.8    1,969,541.5        1,762    3,994,126    1,971,738.7  Wait@jacobi.f90:13               
+     19.8    7,758,236,978      2,000    3,879,118.5    3,878,715.0    3,863,979    3,902,687        4,234.2  Compute Construct@cfd.f90:217    
+     19.8    7,747,479,428      2,000    3,873,739.7    3,873,374.5    3,857,681    3,897,321        4,168.1  Wait@cfd.f90:217                 
+      3.2    1,240,009,055          4  310,002,263.8  309,276,321.5  306,185,640  315,270,772    4,107,624.3  Enter Data@cfd.f90:169           
+      3.1    1,218,528,728         12  101,544,060.7       26,928.5       10,099  309,565,912  149,972,450.8  Enqueue Upload@cfd.f90:169       
+      2.8    1,087,222,631          4  271,805,657.8  271,833,417.5  271,030,467  272,525,329      800,680.4  Device Init                      
+      2.6    1,015,077,695          4  253,769,423.8  253,711,916.0  253,582,879  254,070,984      233,893.8  Exit Data@cfd.f90:169            
+      2.6    1,015,015,862          4  253,753,965.5  253,696,563.5  253,566,740  254,055,995      234,069.7  Enqueue Download@cfd.f90:256     
+      0.6      235,278,321      1,002      234,808.7      232,846.5      202,301    1,757,420       48,337.0  Update@boundary.f90:87           
+      0.6      229,953,852      1,002      229,494.9      227,492.0      196,462    1,751,100       48,300.2  Enqueue Download@boundary.f90:87 
+      0.6      221,003,942      1,002      220,562.8      218,023.5      215,557      240,216        4,419.5  Update@boundary.f90:111          
+      0.6      216,156,933      1,002      215,725.5      213,086.0      210,859      234,860        4,343.4  Enqueue Download@boundary.f90:111
+      0.4      145,636,558      1,002      145,345.9      143,124.0      138,909      205,298        5,109.4  Update@boundary.f90:115          
+      0.4      145,115,232      1,002      144,825.6      145,471.0      138,021      219,137        5,862.0  Update@boundary.f90:91           
+      0.3      120,695,421        501      240,909.0      239,831.0      227,309      282,983        4,246.9  Update@boundary.f90:75           
+      0.3      118,116,513        501      235,761.5      234,732.0      222,278      277,371        4,173.5  Enqueue Download@boundary.f90:75 
+      0.3      108,913,776        501      217,392.8      215,260.0      212,319      268,060        4,624.7  Update@boundary.f90:105          
+      0.3      106,461,290        501      212,497.6      210,308.0      207,667      253,946        4,343.2  Enqueue Download@boundary.f90:105
+      0.3       99,407,151      1,002       99,208.7       96,997.5       91,318      169,587        7,116.3  Enqueue Upload@boundary.f90:115  
+      0.3       98,212,837      1,002       98,016.8       98,322.5       89,939      181,819        7,256.5  Enqueue Upload@boundary.f90:91   
+      0.2       77,288,055        501      154,267.6      153,060.0      149,350      197,571        3,889.7  Update@boundary.f90:101          
+      0.2       71,877,853        501      143,468.8      142,189.0      139,932      209,074        4,330.3  Update@boundary.f90:83           
+      0.1       55,680,262        501      111,138.2      108,926.0      107,003      161,060        4,492.4  Enqueue Upload@boundary.f90:101  
+      0.1       47,547,644        501       94,905.5       93,171.0       91,476      169,168        4,889.1  Enqueue Upload@boundary.f90:83   
+      0.1       43,882,184      1,002       43,794.6       44,561.5       27,502       53,044        2,840.8  Wait@boundary.f90:91             
+      0.1       43,381,003      1,002       43,294.4       43,741.5       28,877       53,980        3,368.5  Wait@boundary.f90:115            
+      0.1       22,757,917        501       45,425.0       46,013.0       26,404       53,598        2,509.8  Wait@boundary.f90:83             
+      0.1       19,972,587        501       39,865.4       40,467.0       27,681       48,118        2,865.2  Wait@boundary.f90:101            
+      0.0       15,601,212      2,000        7,800.6        7,539.0        6,261       39,821        1,778.4  Enqueue Launch@jacobi.f90:13     
+      0.0       15,534,491          4    3,883,622.8    3,880,219.5    3,875,655    3,898,397       10,151.2  Compute Construct@jacobi.f90:35  
+      0.0       15,441,054         12    1,286,754.5        6,637.5        2,209    3,855,802    1,894,070.0  Wait@jacobi.f90:35               
+      0.0        9,078,733      2,000        4,539.4        4,425.0        3,728       15,628          819.8  Enter Data@jacobi.f90:13         
+      0.0        7,275,932      2,000        3,638.0        3,567.0        3,188        9,263          410.1  Enqueue Launch@cfd.f90:217       
+      0.0        3,407,026      2,000        1,703.5        1,714.0        1,395        8,271          313.3  Exit Data@jacobi.f90:13          
+      0.0        2,824,689      1,002        2,819.1        2,777.5        2,350        9,052          410.0  Wait@boundary.f90:87             
+      0.0        2,732,267      1,002        2,726.8        2,720.0        2,205        3,614          118.7  Wait@boundary.f90:111            
+      0.0        1,390,449        501        2,775.3        2,714.0        2,276        9,312          552.5  Wait@boundary.f90:105            
+      0.0        1,346,105        501        2,686.8        2,633.0        2,206        8,963          510.6  Wait@boundary.f90:75             
+      0.0          236,451          8       29,556.4       28,412.0        4,383       57,504       26,603.6  Enter Data@jacobi.f90:35         
+      0.0          129,016          8       16,127.0       15,148.0        1,327       34,966       15,889.1  Exit Data@jacobi.f90:35          
+      0.0           58,775          4       14,693.8       14,806.0       13,871       15,292          595.4  Enqueue Download@jacobi.f90:41   
+      0.0           47,061          8        5,882.6        5,725.0        4,403        7,662        1,337.2  Enqueue Launch@jacobi.f90:35     
+      0.0           42,774          4       10,693.5       10,805.0       10,181       10,983          372.0  Wait@cfd.f90:169                 
+      0.0           23,140          4        5,785.0        5,534.0        5,188        6,884          785.4  Enqueue Upload@jacobi.f90:35     
+      0.0           13,401          4        3,350.3        3,350.0        3,194        3,507          141.3  Wait@cfd.f90:256                 
+      0.0            9,361          4        2,340.3        2,402.0        2,141        2,416          133.0  Wait@jacobi.f90:41               
+      0.0                0         16            0.0            0.0            0            0            0.0  Alloc@cfd.f90:169                
+      0.0                0          4            0.0            0.0            0            0            0.0  Alloc@jacobi.f90:35              
+      0.0                0         16            0.0            0.0            0            0            0.0  Create@cfd.f90:169               
+      0.0                0          4            0.0            0.0            0            0            0.0  Create@jacobi.f90:35             
+      0.0                0         16            0.0            0.0            0            0            0.0  Delete@cfd.f90:256               
+      0.0                0          4            0.0            0.0            0            0            0.0  Delete@jacobi.f90:41             
+

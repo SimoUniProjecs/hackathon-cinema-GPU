@@ -1,0 +1,8 @@
+Unloading profile/base
+  ERROR: Module evaluation aborted
+ERROR: Unable to locate a modulefile for 'nvhpci/24.3'
+nvfortran -fast -acc=gpu -gpu=pinned -Minfo=accel -c -o mandelbrot.o mandelbrot.F90
+make: nvfortran: Command not found
+make: *** [Makefile:9: mandelbrot.o] Error 127
+/var/spool/slurmd/job8599654/slurm_script: line 16: ./mandelbrot.x: No such file or directory
+/var/spool/slurmd/job8599654/slurm_script: line 20: nsys: command not found
