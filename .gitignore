@@ -7,3 +7,4 @@ slurm*
 bynary
 *.x
 random-challenge/
+random-challenge/mandelbrot_multi/f90/solution/image.pgm
