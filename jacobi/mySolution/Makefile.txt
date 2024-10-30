@@ -1,0 +1,44 @@
+# Makefile per jacobi_optimized.cu
+
+# Compilatore CUDA
+NVCC = nvcc
+
+# Architettura specifica per 3070
+NVCC_FLAGS = -O3 -arch=sm_80 -std=c++14
+
+# Compilatore C
+CC = gcc
+CFLAGS = -O3 -std=c99 -D_POSIX_C_SOURCE=200112L
+
+# Librerie e sorgenti
+LIBS = -lm
+DEPS = jacobi.h
+CU_SOURCES = jacobi_optimized.cu
+C_SOURCES = utils.c
+
+# Oggetti
+CU_OBJECTS = $(CU_SOURCES:.cu=.o)
+C_OBJECTS = $(C_SOURCES:.c=.o)
+
+# Nome dell'eseguibile finale
+EXEC = jacobi_optimized
+
+all: $(EXEC)
+
+$(EXEC): $(CU_OBJECTS) $(C_OBJECTS)
+	$(NVCC) $(NVCC_FLAGS) -o $@ $^ $(LIBS)
+
+# Regole per compilare file CUDA
+%.o: %.cu $(DEPS)
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+
+# Regole per compilare file C
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Pulizia
+clean:
+	rm -f $(EXEC) $(CU_OBJECTS) $(C_OBJECTS)
+
+# Evita che Make interpreti 'clean' come un file
+.PHONY: all clean

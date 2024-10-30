@@ -1,0 +1,164 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <sys/time.h>
+#include "jacobi.h"
+#include <cuda_runtime.h>
+#include <thrust/reduce.h>
+#include <thrust/device_ptr.h>
+
+// Kernel to execute the jacobi algorithm
+__global__ void jacobi_kernel(double *grid, double *grid_new, int nx, int ny)
+{
+    // we add 1 to have the right starting point
+    int j = blockIdx.x * blockDim.x + threadIdx.x + 1;
+    int i = blockIdx.y * blockDim.y + threadIdx.y + 1;
+
+    if (i <= ny && j <= nx)
+    {
+        int k = (nx + 2) * i + j;
+        grid_new[k] = 0.25 * (grid[k - 1] + grid[k + 1] + grid[k - (nx + 2)] + grid[k + (nx + 2)]);
+    }
+}
+
+// Kernel to compute the residual norm
+__global__ void compute_norm_kernel(double *grid, double *norm_array, int nx, int ny)
+{
+    int j = blockIdx.x * blockDim.x + threadIdx.x + 1; 
+    int i = blockIdx.y * blockDim.y + threadIdx.y + 1;
+
+    if (i <= ny && j <= nx)
+    {
+        int k = (nx + 2) * i + j;
+        double residue = grid[k] * 4.0 - grid[k - 1] - grid[k + 1] - grid[k - (nx + 2)] - grid[k + (nx + 2)];
+        norm_array[(i - 1) * nx + (j - 1)] = residue * residue;
+    }
+}
+
+/*__global__ void reduce(double *grid, int nx, int ny)    {
+    int j = blockIdx.x * blockDim.x + threadIdx.x + 1; 
+    int i = blockIdx.y * blockDim.y + threadIdx.y + 1;
+
+    
+}*/
+
+int main(int argc, char *argv[])
+{
+    int nx, ny;
+    double left = LEFT, right = RIGHT, top = TOP, bottom = BOTTOM;
+    int ndump = NDUMP;
+    int dump = 1;
+
+    if (argc < 3)
+    {
+        usage(argv);
+        exit(1);
+    }
+    get_options(argc, argv, &nx, &ny, &ndump, &left, &right, &top, &bottom);
+    if (ndump == 0)
+    {
+        dump = 0;
+        printf("Dumping frames off\n");
+    }
+
+    printf("grid size %d X %d \n", nx, ny);
+    size_t grid_size = sizeof(double) * (nx + 2) * (ny + 2);
+    double *h_grid = (double *)malloc(grid_size);
+    double *h_grid_new = (double *)malloc(grid_size);
+
+    init_grids(h_grid, h_grid_new, nx, ny, left, right, top, bottom);
+
+    // Allocation of memory
+    double *d_grid, *d_grid_new, *d_norm_array;
+    size_t norm_array_size = sizeof(double) * nx * ny;
+
+    cudaMalloc((void **)&d_grid, grid_size);
+    cudaMalloc((void **)&d_grid_new, grid_size);
+    cudaMalloc((void **)&d_norm_array, norm_array_size);
+
+    // Copy data from host to device
+    cudaMemcpy(d_grid, h_grid, grid_size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_grid_new, h_grid_new, grid_size, cudaMemcpyHostToDevice);
+
+    // Compute initial bnorm
+    dim3 blockDim(16, 16);
+    dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
+
+    compute_norm_kernel<<<gridDim, blockDim>>>(d_grid, d_norm_array, nx, ny);
+    cudaDeviceSynchronize();
+
+    // Sum the norm_array
+    thrust::device_ptr<double> dev_ptr(d_norm_array);
+    double tmpnorm = thrust::reduce(dev_ptr, dev_ptr + nx * ny, 0.0, thrust::plus<double>());
+    double bnorm = sqrt(tmpnorm);
+
+    // Start timer
+    struct timeval begin, end;
+    gettimeofday(&begin, 0);
+
+    // Start grid file
+    if (dump)
+        dump_grid(h_grid, nx, ny);
+
+    // Main iteration loop
+    int iter;
+    double norm;
+    for (iter = 0; iter < MAX_ITER; iter++)
+    {
+        // Compute tmpnorm
+        compute_norm_kernel<<<gridDim, blockDim>>>(d_grid, d_norm_array, nx, ny);
+        cudaDeviceSynchronize();
+
+        // Sum the norm_array
+        tmpnorm = thrust::reduce(dev_ptr, dev_ptr + nx * ny, 0.0, thrust::plus<double>());
+
+        norm = sqrt(tmpnorm) / bnorm;
+
+        if (norm < TOLERANCE) // Se converge allora esco
+            break;
+
+        
+        // Update grid
+        jacobi_kernel<<<gridDim, blockDim>>>(d_grid, d_grid_new, nx, ny);
+        cudaDeviceSynchronize();
+
+        // Swap pointers
+        double *tmp = d_grid;
+        d_grid = d_grid_new;
+        d_grid_new = tmp;
+
+        if (dump && iter % ndump == 0)
+        {
+            // Copy grid back to host
+            cudaMemcpy(h_grid, d_grid, grid_size, cudaMemcpyDeviceToHost);
+            dump_grid(h_grid, nx, ny);
+        }
+
+        if (iter % NPRINT == 0)
+            printf("Iteration =%d ,Relative norm=%e\n", iter, norm);
+    }
+
+    printf("Terminated on %d iterations, Relative Norm=%e \n", iter, norm);
+    printf("Frames stored=%d \n", get_num_frames());
+
+    // Stop timing
+    gettimeofday(&end, 0);
+    long seconds = end.tv_sec - begin.tv_sec;
+    long microseconds = end.tv_usec - begin.tv_usec;
+    double elapsed = seconds + microseconds * 1e-6;
+    printf("Time measured: %.3f seconds.\n", elapsed);
+
+    // Copy final grid back to host
+    cudaMemcpy(h_grid, d_grid, grid_size, cudaMemcpyDeviceToHost);
+
+    free(h_grid);
+    free(h_grid_new);
+
+    // Free device memory
+    cudaFree(d_grid);
+    cudaFree(d_grid_new);
+    cudaFree(d_norm_array);
+
+    return 0;
+}
