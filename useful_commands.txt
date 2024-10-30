@@ -1,4 +1,5 @@
 ssh a08tra48@login.leonardo.cineca.it
+ssh Ooc5fieR@login.leonardo.cineca.it
 
 module load cuda/12.1
 
@@ -6,4 +7,3 @@ module load nvhpc
 
 srun -n 1 -N 1 --gres=gpu:1 --account=tra24_epicure --partition=boost_usr_prod --qos=boost_qos_dbg --time=00:30:00 --pty bash
 
-Ooc5fieR
