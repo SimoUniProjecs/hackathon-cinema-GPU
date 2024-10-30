@@ -14,8 +14,8 @@ ifdef SINGLE
 endif
 
 CC=gcc
-CFLAGS=-O2 -g -fopenmp 
-LDFLAGS= -lm -lrt -fopenmp
+CFLAGS=-O2 -g #-fopenmp 
+LDFLAGS= -lm -lrt #-fopenmp
 
 
 #
