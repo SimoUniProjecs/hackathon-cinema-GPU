@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -74,18 +75,13 @@ int main(int argc, char *argv[])
     cudaMemcpy(d_grid, h_grid, grid_size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_grid_new, h_grid_new, grid_size, cudaMemcpyHostToDevice);
 
-    // Initialize CUDA streams
-    cudaStream_t stream1, stream2;
-    cudaStreamCreate(&stream1);
-    cudaStreamCreate(&stream2);
-
     // Compute initial bnorm
     dim3 blockDim(16, 16);
     dim3 gridDim((nx + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
 
     nvtxRangePushA("compute norm kernel");
-    compute_norm_kernel<<<gridDim, blockDim, 0, stream1>>>(d_grid, d_norm_array, nx, ny);
-    cudaStreamSynchronize(stream1);
+    compute_norm_kernel<<<gridDim, blockDim>>>(d_grid, d_norm_array, nx, ny);
+    cudaDeviceSynchronize();
     nvtxRangePop();
 
     // Sum the norm_array
@@ -107,27 +103,27 @@ int main(int argc, char *argv[])
     nvtxRangePushA("main loop");
     for (iter = 0; iter < MAX_ITER; iter++)
     {
-        // Compute Norm on stream1 for the current iteration
+        float tmpnorm;
         nvtxRangePushA("Norm");
-        compute_norm_kernel<<<gridDim, blockDim, 0, stream1>>>(d_grid, d_norm_array, nx, ny);
+        compute_norm_kernel<<<gridDim, blockDim>>>(d_grid, d_norm_array, nx, ny);
+        cudaDeviceSynchronize();
 
-        // Compute Stencil on stream2 for the next iteration
-        nvtxRangePushA("Stencil");
-        jacobi_kernel<<<gridDim, blockDim, 0, stream2>>>(d_grid, d_grid_new, nx, ny);
-        
-        // Wait for Norm calculation on stream1
-        cudaStreamSynchronize(stream1);
+        // Sum the norm_array
         tmpnorm = thrust::reduce(dev_ptr, dev_ptr + nx * ny, 0.0, thrust::plus<float>());
+
         norm = sqrt(tmpnorm) / bnorm;
-        
-        nvtxRangePop(); // Pop Norm
-        nvtxRangePop(); // Pop Stencil
 
         if (norm < TOLERANCE)
             break;
 
-        // Wait for Stencil calculation on stream2
-        cudaStreamSynchronize(stream2);
+        nvtxRangePop();
+
+        // Update grid
+
+        nvtxRangePushA("Stencil");
+        jacobi_kernel<<<gridDim, blockDim>>>(d_grid, d_grid_new, nx, ny);
+        cudaDeviceSynchronize();
+        nvtxRangePop();
 
         // Swap pointers
         float *tmp = d_grid;
@@ -156,17 +152,14 @@ int main(int argc, char *argv[])
     float elapsed = seconds + microseconds * 1e-6;
     printf("Time measured: %.3f seconds.\n", elapsed);
 
-    // Cleanup
-    cudaStreamDestroy(stream1);
-    cudaStreamDestroy(stream2);
-
-    FILE *file = fopen("results_step100_2streams.csv", "a");
+    // Save results to CSV
+    /*FILE *file = fopen("results_1step.csv", "a");
     if (file == NULL) {
         perror("Error opening file");
         exit(1);
     }
     fprintf(file, "%d,%.3f\n", nx, elapsed);
-    fclose(file);
+    fclose(file);*/
 
     // Copy final grid back to host
     cudaMemcpy(h_grid, d_grid, grid_size, cudaMemcpyDeviceToHost);
