@@ -24,8 +24,18 @@ We have noticed and understood that it's possible that the CPU can be faster tha
 Even though Jacobe it's an easy problem we decided to try to do it with NVIDIA Nsight System
 ![NVIDIA TOOL](https://hackmd.io/_uploads/HJzCXCkZ1g.png)
 
+### Little Ottimization
+Using 2 streams instead of 1 we noticed an improvement, here the details:
+![IMAGE 2024-10-31 08:32:51](https://hackmd.io/_uploads/B1rnG2eb1l.jpg)
+![Risultato](https://hackmd.io/_uploads/rJzt1heW1l.png)
+![IMAGE 2024-10-31 08:32:58](https://hackmd.io/_uploads/SkG2MneZ1g.jpg)
+
+## Here the differences between the two codes:
+![Figure_1](https://hackmd.io/_uploads/SJXQ9hg-yl.png)
+
 ## DAY 3: 31 Oct
 Goal to Achieve:
+- Plot the difference between **BEFORE & AFTER** the optimization ( did this morning in the car )
 - Understanding the PROFILING process
 - finishing the PROFILING process of the Jacobe
-- Trying another Exercise if we finish in time
+- Trying another Exercise
